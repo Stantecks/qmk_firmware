@@ -35,6 +35,23 @@ enum planck_layers {
 #define WM_LEFT S(LALT(KC_H))
 #define WM_RIGHT S(LALT(KC_L))
 
+
+#define WM_F_UP S(LGUI(KC_K))
+#define WM_F_DOWN S(LGUI(KC_J))
+#define WM_F_LEFT S(LGUI(KC_H))
+#define WM_F_RIGHT S(LGUI(KC_L))
+
+#define WM_S_UP S(LALT(KC_W))
+#define WM_S_DOWN S(LALT(KC_S))
+#define WM_S_LEFT S(LALT(KC_A))
+#define WM_S_RIGHT S(LALT(KC_D))
+
+
+#define WM_M_UP LCTL(KC_UP)
+#define WM_M_DOWN LCTL(KC_DOWN)
+#define WM_M_LEFT LCTL(KC_LEFT)
+#define WM_M_RIGHT LCTL(KC_RIGHT)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Base layer (Qwerty)
    *                ,-----------------------------------------------------------------------.
@@ -51,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_ESC,  KC_Q,           KC_W,          KC_E,    KC_R,  KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,          KC_P,           KC_BSPC},
     {KC_TAB,  KC_A,           KC_S,          KC_D,    KC_F,  KC_G,   KC_H,    KC_J,  KC_K,    KC_L,          KC_SCLN,        KC_ENT},
     {KC_LSPO, KC_Z,           KC_X,          KC_C,    KC_V,  KC_B,   KC_N,    KC_M,  KC_COMM, KC_DOT,        KC_SLSH,        KC_RSPC},
-    {LCTL_T(KC_LBRC), F(1), F(2), LT(KEYBOARD_LAYER, KC_RBRC), MO(_LOWER), KC_SPC, KC_SPC, TT(_RAISE), WM_LEFT, WM_DOWN, WM_UP, WM_RIGHT}
+    {LCTL_T(KC_LBRC), F(1), F(2), LT(KEYBOARD_LAYER, KC_RBRC), MO(_LOWER), KC_SPC, KC_SPC, TT(_RAISE), WM_F_LEFT, WM_F_DOWN, WM_F_UP, WM_F_RIGHT}
   },
   /* Symbols and Nav Layer
    *                ,-----------------------------------------------------------------------.
@@ -68,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TILD, KC_1,        KC_2,       KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,  KC_0,    KC_BSPC},
     {KC_TAB,  KC_EQL,         KC_PLUS,       KC_MINS, KC_5,    KC_5,   KC_LEFT,    KC_DOWN,    KC_UP,  KC_RIGHT, KC_SCLN,  KC_QUOT},
     {KC_LSPO, KC_MINS,        KC_EQL,        KC_GRV,  KC_BSLS, KC_PIPE, KC_SLSH, KC_SLSH, KC_COMM, KC_DOT,   KC_SLSH,     KC_RSPC},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, _______, _______, _______, WM_LEFT, WM_DOWN, WM_UP, WM_RIGHT}
   },
 
  /* GUI (mouse/media controls) layer
@@ -90,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, ___x___, ___x___, KC_7,    KC_8,    KC_9, KC_PLUS, KC_MINUS},
     {_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, ___x___, ___x___, KC_4,   KC_5,  KC_6, KC_ASTERISK,   KC_SLASH},
     {_______, KC_VOLD, KC_MUTE, KC_VOLU, ___x___, ___x___, ___x___, KC_1,   KC_2,  KC_3, KC_0, KC_DOT},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, _______, _______, _______, WM_S_LEFT, WM_S_DOWN, WM_S_UP, WM_S_RIGHT}
   },
     /* Keyboard settings layer
    *                ,-----------------------------------------------------------------------.
@@ -113,10 +130,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   [_CUSTOM] = {
-    {___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, RESET},
+    {___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, KC_NO},
     {KC_CAPS, MU_MOD,  ___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___},
     {___x___, MUV_DE,  MUV_IN,  MU_ON,  MU_OFF, ___x___,   ___x___,  ___x___, ___x___, AU_ON,   AU_OFF,   ___x___},
-    {___x___, ___x___, ___x___, _______, _______, ___x___, ___x___, _______, _______, ___x___,  ___x___,  ___x___}
+    {___x___, ___x___, ___x___, _______, _______, ___x___, ___x___, _______, WM_M_LEFT, WM_M_DOWN, WM_M_UP, WM_M_RIGHT}
   }
 };
 
