@@ -20,19 +20,20 @@ enum planck_layers {
 #define ___x___ KC_NO
 #define _______ KC_TRNS
 
-enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  PLOVER,
-  LOWER,
-  RAISE,
-  BACKLIT,
-  EXT_PLV
-};
+// Layer Defs
+#define _QWERTY  0 // QUERTY layer
+#define _LOWER   1 // Lower layer
+#define _RAISE   2 // Raise layer
+#define _CUSTOM 3  // Custom layer (LOWER + RAISE)
+#define KEYBOARD_LAYER  4 
+#define LALT_BRACE 5
+#define LGUI_BRACE 6
 
-#define LGUI_BRACE 0
-#define LALT_BRACE 1
+
+#define WM_UP S(LALT(KC_K))
+#define WM_DOWN S(LALT(KC_J))
+#define WM_LEFT S(LALT(KC_H))
+#define WM_RIGHT S(LALT(KC_L))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Base layer (Qwerty)
@@ -50,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_ESC,  KC_Q,           KC_W,          KC_E,    KC_R,  KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,          KC_P,           KC_BSPC},
     {KC_TAB,  KC_A,           KC_S,          KC_D,    KC_F,  KC_G,   KC_H,    KC_J,  KC_K,    KC_L,          KC_SCLN,        KC_ENT},
     {KC_LSPO, KC_Z,           KC_X,          KC_C,    KC_V,  KC_B,   KC_N,    KC_M,  KC_COMM, KC_DOT,        KC_SLSH,        KC_RSPC},
-    {LCTL_T(KC_LBRC), F(4), F(5), LT(3, KC_RBRC), F(1), KC_SPC, KC_SPC, TT(2), KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT}
+    {LCTL_T(KC_LBRC), F(1), F(2), LT(KEYBOARD_LAYER, KC_RBRC), MO(_LOWER), KC_SPC, KC_SPC, TT(_RAISE), WM_LEFT, WM_DOWN, WM_UP, WM_RIGHT}
   },
   /* Symbols and Nav Layer
    *                ,-----------------------------------------------------------------------.
@@ -108,16 +109,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_CAPS, MU_MOD,  ___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___},
     {___x___, MUV_DE,  MUV_IN,  MU_ON,  MU_OFF, ___x___,   ___x___,  ___x___, ___x___, AU_ON,   AU_OFF,   ___x___},
     {___x___, ___x___, ___x___, _______, _______, ___x___, ___x___, _______, _______, ___x___,  ___x___,  ___x___}
+  },
+
+
+  [_CUSTOM] = {
+    {___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, RESET},
+    {KC_CAPS, MU_MOD,  ___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___},
+    {___x___, MUV_DE,  MUV_IN,  MU_ON,  MU_OFF, ___x___,   ___x___,  ___x___, ___x___, AU_ON,   AU_OFF,   ___x___},
+    {___x___, ___x___, ___x___, _______, _______, ___x___, ___x___, _______, _______, ___x___,  ___x___,  ___x___}
   }
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_MOMENTARY(1),  
-  [2] = ACTION_LAYER_MOMENTARY(2),  
-  [3] = ACTION_LAYER_MOMENTARY(3),
-  
-  [4] = ACTION_MACRO_TAP(LGUI_BRACE),
-  [5] = ACTION_MACRO_TAP(LALT_BRACE),
+const uint16_t PROGMEM fn_actions[] = { 
+  [1] = ACTION_MACRO_TAP(LGUI_BRACE),
+  [2] = ACTION_MACRO_TAP(LALT_BRACE),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -156,3 +161,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     }
     return MACRO_NONE;
   }
+
+uint32_t layer_state_set_user(uint32_t state) {
+   state = update_tri_layer_state(state, _LOWER, _RAISE, _CUSTOM);
+   return state;
+ }
