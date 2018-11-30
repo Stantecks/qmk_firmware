@@ -1,4 +1,4 @@
-// Based off of "brandon" keymap
+ // Based off of "brandon" keymap
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -16,7 +16,7 @@ enum planck_layers {
   _RAISE,
   KEYBOARD_LAYER
 };
-
+// For legibility
 #define ___x___ KC_NO
 #define _______ KC_TRNS
 
@@ -26,10 +26,11 @@ enum planck_layers {
 #define _RAISE   2 // Raise layer
 #define _CUSTOM 3  // Custom layer (LOWER + RAISE)
 #define KEYBOARD_LAYER  4 
+// Macros need enumeration for "cases"
 #define LALT_BRACE 5
 #define LGUI_BRACE 6
 
-
+// chunkwm hotkeys set in khd
 #define WM_UP S(LALT(KC_K))
 #define WM_DOWN S(LALT(KC_J))
 #define WM_LEFT S(LALT(KC_H))
@@ -51,6 +52,11 @@ enum planck_layers {
 #define WM_M_DOWN LCTL(KC_DOWN)
 #define WM_M_LEFT LCTL(KC_LEFT)
 #define WM_M_RIGHT LCTL(KC_RIGHT)
+
+// MPC commands triggering an applescript service
+#define MED_TOGGLE LCTL(LALT(S(LGUI(KC_O))))
+#define MED_NEXT LCTL(LALT(S(LGUI(KC_P))))
+#define MED_PREV LCTL(LALT(S(LGUI(KC_I))))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Base layer (Qwerty)
@@ -85,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_TILD, KC_1,        KC_2,       KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,  KC_0,    KC_BSPC},
     {KC_TAB,  KC_EQL,         KC_PLUS,       KC_MINS, KC_5,    KC_5,   KC_LEFT,    KC_DOWN,    KC_UP,  KC_RIGHT, KC_SCLN,  KC_QUOT},
     {KC_LSPO, KC_MINS,        KC_EQL,        KC_GRV,  KC_BSLS, KC_PIPE, KC_SLSH, KC_SLSH, KC_COMM, KC_DOT,   KC_SLSH,     KC_RSPC},
-    {_______, _______, _______, _______, _______, _______, _______, _______, WM_LEFT, WM_DOWN, WM_UP, WM_RIGHT}
+    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, WM_LEFT, WM_DOWN, WM_UP, WM_RIGHT}
   },
 
  /* GUI (mouse/media controls) layer
@@ -104,10 +110,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_RAISE] = {
-    {_______, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, ___x___, ___x___, KC_7,    KC_8,    KC_9, KC_PLUS, KC_MINUS},
-    {_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, ___x___, ___x___, KC_4,   KC_5,  KC_6, KC_ASTERISK,   KC_SLASH},
-    {_______, KC_VOLD, KC_MUTE, KC_VOLU, ___x___, ___x___, ___x___, KC_1,   KC_2,  KC_3, KC_0, KC_DOT},
-    {_______, _______, _______, _______, _______, _______, _______, _______, WM_S_LEFT, WM_S_DOWN, WM_S_UP, WM_S_RIGHT}
+    {KC_TRNS, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, KC_NO, KC_NO, KC_7,    KC_8,    KC_9, KC_PLUS, KC_MINUS},
+    {KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, KC_NO, KC_NO, KC_4,   KC_5,  KC_6, KC_ASTERISK,   KC_SLASH},
+    {KC_TRNS, KC_VOLD, KC_MUTE, KC_VOLU, KC_NO, KC_NO, KC_NO, KC_1,   KC_2,  KC_3, KC_0, KC_DOT},
+    {KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, WM_S_LEFT, WM_S_DOWN, WM_S_UP, WM_S_RIGHT}
   },
     /* Keyboard settings layer
    *                ,-----------------------------------------------------------------------.
@@ -119,24 +125,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                |-----------------------------------------------------------------------|
    *                |     |     |     |     |     |  Toggle   |     |Toggl| BL- | BL+ |     |
    *                `-----------------------------------------------------------------------'
-   *                                                    \_____________\_ Backlight _/
+   *                                                    \KC_TRNS______\_ Backlight _/
    */
   [KEYBOARD_LAYER] = {
-    {___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, RESET},
-    {KC_CAPS, MU_MOD,  ___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___},
-    {___x___, MUV_DE,  MUV_IN,  MU_ON,  MU_OFF, ___x___,   ___x___,  ___x___, ___x___, AU_ON,   AU_OFF,   ___x___},
-    {___x___, ___x___, ___x___, _______, _______, ___x___, ___x___, _______, _______, ___x___,  ___x___,  ___x___}
+    {KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, RESET},
+    {KC_CAPS, MU_MOD,  KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+    {KC_NO, MUV_DE,  MUV_IN,  MU_ON,  MU_OFF, KC_NO,   KC_NO,  KC_NO, KC_NO, AU_ON,   AU_OFF,   KC_NO},
+    {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO}
   },
 
 
   [_CUSTOM] = {
-    {___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, KC_NO},
-    {KC_CAPS, MU_MOD,  ___x___, ___x___,   ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___, ___x___},
-    {___x___, MUV_DE,  MUV_IN,  MU_ON,  MU_OFF, ___x___,   ___x___,  ___x___, ___x___, AU_ON,   AU_OFF,   ___x___},
-    {___x___, ___x___, ___x___, _______, _______, ___x___, ___x___, _______, WM_M_LEFT, WM_M_DOWN, WM_M_UP, WM_M_RIGHT}
+    {KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+    {KC_CAPS, KC_NO,  KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+    {KC_NO, MED_PREV,  MED_TOGGLE,  MED_NEXT,  KC_NO, KC_NO,   KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO},
+    {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, WM_M_LEFT, WM_M_DOWN, WM_M_UP, WM_M_RIGHT}
   }
 };
 
+//This is the fn number
 const uint16_t PROGMEM fn_actions[] = { 
   [1] = ACTION_MACRO_TAP(LGUI_BRACE),
   [2] = ACTION_MACRO_TAP(LALT_BRACE),
@@ -179,6 +186,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
   }
 
+//This sets up lower+raise layer
 uint32_t layer_state_set_user(uint32_t state) {
    state = update_tri_layer_state(state, _LOWER, _RAISE, _CUSTOM);
    return state;
