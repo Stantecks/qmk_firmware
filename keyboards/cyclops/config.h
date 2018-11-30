@@ -1,30 +1,31 @@
-/* Copyright 2018 Jason Williams (Wilba)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/*
+Copyright 2018 'mechmerlin'
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x6582 // wilba.tech
-#define PRODUCT_ID      0x065A // 65-A
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    wilba.tech
-#define PRODUCT         wilba.tech WT65-A
-#define DESCRIPTION     wilba.tech WT65-A
+#define MANUFACTURER    You
+#define PRODUCT         cyclops
+#define DESCRIPTION     A custom 66% keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -40,17 +41,12 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { F0, E6, F4, F6, F7 }
-#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
+#define MATRIX_ROW_PINS { D1, D0, D7, B4, F0 }
+#define MATRIX_COL_PINS { D3, D2, D5, D6, B6, B1, B2, B3, C6, C7, F7, F6, F4, F5, F1 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION ROW2COL
- 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
+#define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
@@ -185,22 +181,34 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+/*
+ * HD44780 LCD Display Configuration
+ */
+/*
+#define LCD_LINES           2     //< number of visible lines of the display
+#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
 
-// EEPROM usage
+#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
 
-// TODO: refactor with new user EEPROM code (coming soon)
-#define EEPROM_MAGIC 0x451F
-#define EEPROM_MAGIC_ADDR 32
-// Bump this every time we change what we store
-// This will automatically reset the EEPROM with defaults
-// and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x08
-#define EEPROM_VERSION_ADDR 34
+#if LCD_IO_MODE
+#define LCD_PORT         PORTB        //< port for the LCD lines
+#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
+#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
+#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
+#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
+#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
+#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
+#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
+#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
+#define LCD_RS_PORT      LCD_PORT     //< port for RS line
+#define LCD_RS_PIN       3            //< pin  for RS line
+#define LCD_RW_PORT      LCD_PORT     //< port for RW line
+#define LCD_RW_PIN       2            //< pin  for RW line
+#define LCD_E_PORT       LCD_PORT     //< port for Enable line
+#define LCD_E_PIN        1            //< pin  for Enable line
+#endif
+*/
 
-// Dynamic keymap starts after EEPROM version
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*5*15*2)) = (35+600)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 635
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 389
-#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+/* Bootmagic Lite key configuration */
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0
