@@ -31,23 +31,31 @@ enum planck_layers {
 #define LGUI_BRACE 6
 
 // chunkwm hotkeys set in khd
+// Move Windows
 #define WM_UP S(LALT(KC_K))
 #define WM_DOWN S(LALT(KC_J))
 #define WM_LEFT S(LALT(KC_H))
 #define WM_RIGHT S(LALT(KC_L))
 
-
+// Focus Windows
 #define WM_F_UP S(LGUI(KC_K))
 #define WM_F_DOWN S(LGUI(KC_J))
 #define WM_F_LEFT S(LGUI(KC_H))
 #define WM_F_RIGHT S(LGUI(KC_L))
 
+// Resize Windows
 #define WM_S_UP S(LALT(KC_W))
 #define WM_S_DOWN S(LALT(KC_S))
 #define WM_S_LEFT S(LALT(KC_A))
 #define WM_S_RIGHT S(LALT(KC_D))
 
+// More Khd stuff
+#define WM_T_FLOAT LALT(KC_SPC)
+#define WM_EQ S(LALT(KC_0))
+#define WM_MON_R LCTL(LALT(KC_C))
+#define WM_MON_L LCTL(LALT(KC_Z))
 
+//Mac Motions
 #define WM_M_UP LCTL(KC_UP)
 #define WM_M_DOWN LCTL(KC_DOWN)
 #define WM_M_LEFT LCTL(KC_LEFT)
@@ -134,10 +142,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO,  KC_NO}
   },
 
-
+// WM HYPE MODE
   [_CUSTOM] = {
-    {KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
-    {KC_CAPS, KC_NO,  KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO},
+    {KC_NO, WM_MON_L, WM_F_UP, WM_MON_R, WM_EQ, KC_NO, KC_NO, KC_NO, WM_UP, KC_NO, KC_NO, KC_NO},
+    {KC_CAPS, WM_F_LEFT,  WM_F_DOWN, WM_F_RIGHT, WM_T_FLOAT, KC_NO, KC_NO, WM_LEFT, WM_DOWN, WM_RIGHT, KC_NO, KC_NO},
     {KC_NO, MED_PREV,  MED_TOGGLE,  MED_NEXT,  KC_NO, KC_NO,   KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO},
     {KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, WM_M_LEFT, WM_M_DOWN, WM_M_UP, WM_M_RIGHT}
   }
